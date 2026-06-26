@@ -8,12 +8,23 @@ from typing import Optional
 import os
 from src.training.train_models import run_training # Asumsikan skrip ini ada
 
-FILE_PATH = 'data/processed/dashboard_predictions.csv'
-if not os.path.exists(FILE_PATH):
-    print("File tidak ditemukan, menjalankan training otomatis...")
-    run_training() # Jalankan skrip trainingmu
+def initialize_data():
+    file_path = 'data/processed/dashboard_predictions.csv'
+    
+    # Cek apakah file ada
+    if not os.path.exists(file_path):
+        st.info("Data tidak ditemukan. Menjalankan skrip training untuk generate data...")
+        try:
+            # Pastikan folder ada
+            os.makedirs('data/processed/', exist_ok=True)
+            # Jalankan skrip training-mu
+            run_training() 
+            st.success("Data berhasil di-generate!")
+        except Exception as e:
+            st.error(f"Gagal generate data: {e}")
 
-df = pd.read_csv(FILE_PATH)
+# Panggil fungsi ini sebelum kode dashboard lainnya
+initialize_data()
 
 ROOT = Path(__file__).parent
 
