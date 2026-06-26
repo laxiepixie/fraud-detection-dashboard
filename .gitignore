@@ -1,0 +1,18 @@
+# Block raw data & large processed data
+data/raw/*.csv
+data/processed/*.csv
+data/processed/*.parquet
+data/analytics/.write_test
+
+# Block temp files & caches
+__pycache__/
+.pytest_cache/
+.DS_Store
+
+# Virtual environment (jika ada)
+venv/
+env/
+.env
+
+# Block heavy models
+models/*.pkl
